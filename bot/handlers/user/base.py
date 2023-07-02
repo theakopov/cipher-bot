@@ -4,15 +4,15 @@ from aiogram.filters.text import Text
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
-from bot.keyboards import (
+from ...keyboards import (
     get_ciphers_buttons,
     get_hash_buttons,
     get_menu_buttons,
     get_cipher_page,
     Back_data,
 )
-from bot.data.texts.main import help_text
-from bot.database import Repository
+from ...data.texts.main import help_text
+from ...database import Repository
 
 router = Router()
 

@@ -1,10 +1,11 @@
-from bot.database.requests import Repository
-from bot.data.config import config as config_
-from bot.filters import ForAdmins
 from aiogram.filters import Command
 from aiogram.types import Message, input_file
 from aiogram import Router
 from textwrap import dedent
+
+from ...database.requests import Repository
+from ...data.config import config as config_
+from ...filters import ForAdmins
 
 router = Router()
 

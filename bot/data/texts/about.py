@@ -8,7 +8,7 @@ For example, when offset by 3, "A" becomes "D", "B" becomes "E", and so on. The 
 
 The Caesar cipher is considered weak and can be easily deciphered. It is mainly used for educational purposes and as a basis for more advanced encryption methods.
 
-The following languages are supported: Russian, English
+The following languages are supported: Russian, English, Spanish
 
 Crypto resistance 3/10""",
 

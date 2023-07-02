@@ -1,7 +1,7 @@
 import redis
-
 from typing import Union
-from bot.data.config import config
+
+from ..data.config import config
 
 
 class Cache:

@@ -3,7 +3,7 @@ from aiogram.types import Message, TelegramObject, Update
 
 from typing import Union, Callable, Dict, Awaitable, Any, Optional
 
-from bot.database import Cache
+from ..database import Cache
 
 
 class AntiFloodMiddleware(BaseMiddleware):

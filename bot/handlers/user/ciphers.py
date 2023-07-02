@@ -7,23 +7,23 @@ from aiogram.filters.text import Text
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 
-from bot.keyboards import (
+from ...filters import CheckKey, DefaultEncryption
+from ...models import EncryptionKeyInput
+from ...data.texts.about import description_ciphers
+from ...data.texts.key_description import description_ciphers_keys
+from ...data.config import logger, config
+from ...misc import Cipher
+from ...keyboards import (
     get_cipher_page,
     get_back_button,
     get_try_again_button,
     Ciphers_data,
 )
-from bot.filters import CheckKey, DefaultEncryption
-from bot.models import EncryptionKeyInput
-from bot.data.texts.about import description_ciphers
-from bot.data.texts.key_description import description_ciphers_keys
-from bot.data.config import logger, config
-from bot.misc import Cipher
 
 router = Router()
 
 
-@router.callback_query(Text(Cipher.CIPHERS))
+@router.callback_query(Text(list(Cipher.CIPHERS.values())))
 async def show_cipher(callback: CallbackQuery, state: FSMContext):
     await state.clear()
 

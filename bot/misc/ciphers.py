@@ -5,19 +5,19 @@ from Crypto.Cipher import AES
 from Crypto import Random
 from typing import Optional
 
-from bot.data.data import ru, _ru, en, _en, all
+from ..data.data import *
 
 
 class Cipher:
     """
     Class for implementing ciphers
     """
-    CIPHERS = (
-        "caesar",
-        "vigenere",
-        "atbash",
-        "aes",
-    )
+    CIPHERS = {
+        "Caesar cipher": "caesar",
+        "Vigenere cipher": "vigenere",
+        "Atbash cipher": "atbash",
+        "AES": "aes",
+    }
 
     @staticmethod
     def caesar(text: str, key: Optional[int], action: Optional[str] = None) -> str:
@@ -39,14 +39,19 @@ class Cipher:
             if letter not in all:
                 r += letter
                 continue
+
             elif letter in en:
                 new_letter = en[(en.index(letter) + key) % 26]
-            elif letter in _en:
-                new_letter = _en[(_en.index(letter) + key) % 26]
+            elif letter in en_:
+                new_letter = en_[(en_.index(letter) + key) % 26]
             elif letter in ru:
                 new_letter = ru[(ru.index(letter) + key) % 33]
-            elif letter in _ru:
-                new_letter = _ru[(_ru.index(letter) + key) % 33]
+            elif letter in ru_:
+                new_letter = ru_[(ru_.index(letter) + key) % 33]
+            elif letter in es:
+                new_letter = es[(es.index(letter) + key) % 27]
+            elif letter in es_:
+                new_letter = es_[(es_.index(letter) + key) % 27]
             r += new_letter
         return r
 
@@ -79,17 +84,17 @@ class Cipher:
                 shift = en.index(new_key.lower())
             elif new_key.lower() in ru:
                 shift = ru.index(new_key.lower())
-
             shift *= is_decrypt
-            if letter in _en:
-                index = _en.index(letter)
-                new_letter = _en[(shift + index) % 26]
+
+            if letter in en_:
+                index = en_.index(letter)
+                new_letter = en_[(shift + index) % 26]
             elif letter in en:
                 index = en.index(letter)
                 new_letter = en[(shift + index) % 26]
-            elif letter in _ru:
-                index = _ru.index(letter)
-                new_letter = _ru[(shift + index) % 33]
+            elif letter in ru_:
+                index = ru_.index(letter)
+                new_letter = ru_[(shift + index) % 33]
             elif letter in ru:
                 index = ru.index(letter)
                 new_letter = ru[(shift + index) % 33]

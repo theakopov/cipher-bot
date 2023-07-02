@@ -2,25 +2,23 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from .callback_data import Back_data
+from ..misc.ciphers import Cipher
 
 
 def get_menu_buttons() -> InlineKeyboardMarkup:
     b = InlineKeyboardBuilder()
+
     b.row(InlineKeyboardButton(text="ㅤEncryptㅤ", callback_data="encrypt"))
     b.row(InlineKeyboardButton(text="ㅤHashㅤ", callback_data="hash"))
+
     return b.as_markup()
 
 
 def get_ciphers_buttons() -> InlineKeyboardMarkup:
     b = InlineKeyboardBuilder()
-    b.row(
-        InlineKeyboardButton(text="Caesar cipher", callback_data="caesar"),
-        InlineKeyboardButton(text="Vigenere cipher", callback_data="vigenere"),
-    )
-    b.row(
-        InlineKeyboardButton(text="Atbash cipher", callback_data="atbash"),
-        InlineKeyboardButton(text="AES", callback_data="aes"),
-    )
+    for name, callback in Cipher.CIPHERS.items():
+        b.row(InlineKeyboardButton(text=name, callback_data=callback), width=2)
+    b.adjust(2)
     b.row(
         InlineKeyboardButton(
             text="<--", callback_data=Back_data(lvl="start", cipher="").pack()
@@ -30,15 +28,12 @@ def get_ciphers_buttons() -> InlineKeyboardMarkup:
 
 
 def get_hash_buttons():
+    hashes = ("md5", "sha1", "sha256", "sha512", "blake2b", "blake2s")
+
     b = InlineKeyboardBuilder()
-    b.row(InlineKeyboardButton(text="md5", callback_data="md5"),
-          InlineKeyboardButton(text="sha1", callback_data="sha1"))
-
-    b.row(InlineKeyboardButton(text="sha256", callback_data="sha256"),
-          InlineKeyboardButton(text="sha512", callback_data="sha512"))
-
-    b.row(InlineKeyboardButton(text="blake2b", callback_data="blake2b"),
-          InlineKeyboardButton(text="blake2s", callback_data="blake2s"))
+    for hash in hashes:
+        b.row(InlineKeyboardButton(text=hash, callback_data=hash))
+    b.adjust(2)
 
     b.row(
         InlineKeyboardButton(

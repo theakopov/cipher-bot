@@ -6,9 +6,9 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import Text, StateFilter
 from aiogram.exceptions import TelegramBadRequest
 
-from bot.models import Hash_input
-from bot.keyboards import get_back_button
-from bot.data.config import logger
+from ...models import Hash_input
+from ...keyboards import get_back_button
+from ...data.config import logger
 
 hashes = ('md5', 'sha1',
           'sha256', 'sha512',

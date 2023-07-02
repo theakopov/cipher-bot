@@ -1,5 +1,9 @@
 en = "abcdefghijklmnopqrstuvwxyz"
-_en = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+en_ = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 ru = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-_ru = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-all = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZабвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+ru_ = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+es = "abcdefghijklmnñopqrstuvwxyz"
+es_ = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+
+alphabets = ("en", "en_", "ru", "ru_", "es", "es_")
+all = ru + en + ru_ + en_ + es + es_

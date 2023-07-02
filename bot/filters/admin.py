@@ -1,7 +1,7 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message
 
-from bot.data.config import config
+from ..data.config import config
 
 
 class ForAdmins(BaseFilter):
