@@ -20,7 +20,7 @@ The keyword is repeated to match the length of the plaintext, and each letter in
 
 The Vigenère cipher provides a stronger encryption than the Caesar cipher. It was considered invulnerable for several centuries, until advances in cryptanalysis revealed its vulnerabilities.
 
-The following languages are supported: Russian, English.
+The following languages are supported: Russian, Englisha, Spanish.
 
 Crypto resistance 5/10""",
 

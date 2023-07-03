@@ -12,7 +12,11 @@ class CheckKey:
 
     @staticmethod
     def vigenere(key: Optional[str]) -> bool:
-        return key.isalpha()
+        try:
+            int(key)
+            return False
+        except ValueError:
+            return True
 
     @staticmethod
     def atbash(key: Optional[str]) -> bool:

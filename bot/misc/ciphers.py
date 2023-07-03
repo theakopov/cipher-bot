@@ -39,19 +39,11 @@ class Cipher:
             if letter not in all:
                 r += letter
                 continue
+            for alphabet in alphabets:
+                if letter in alphabet:
+                    new_letter = alphabet[(alphabet.index(
+                        letter) + key) % len(alphabet)]
 
-            elif letter in en:
-                new_letter = en[(en.index(letter) + key) % 26]
-            elif letter in en_:
-                new_letter = en_[(en_.index(letter) + key) % 26]
-            elif letter in ru:
-                new_letter = ru[(ru.index(letter) + key) % 33]
-            elif letter in ru_:
-                new_letter = ru_[(ru_.index(letter) + key) % 33]
-            elif letter in es:
-                new_letter = es[(es.index(letter) + key) % 27]
-            elif letter in es_:
-                new_letter = es_[(es_.index(letter) + key) % 27]
             r += new_letter
         return r
 
@@ -80,24 +72,16 @@ class Cipher:
             while key[iter] not in all:
                 iter += 1
             new_key = key[iter]
-            if new_key.lower() in en:
-                shift = en.index(new_key.lower())
-            elif new_key.lower() in ru:
-                shift = ru.index(new_key.lower())
-            shift *= is_decrypt
+            for alphabet in alphabets:
+                if new_key.lower() in alphabet:
+                    shift = alphabet.index(new_key.lower())
 
-            if letter in en_:
-                index = en_.index(letter)
-                new_letter = en_[(shift + index) % 26]
-            elif letter in en:
-                index = en.index(letter)
-                new_letter = en[(shift + index) % 26]
-            elif letter in ru_:
-                index = ru_.index(letter)
-                new_letter = ru_[(shift + index) % 33]
-            elif letter in ru:
-                index = ru.index(letter)
-                new_letter = ru[(shift + index) % 33]
+            shift *= is_decrypt
+            for alphabet in alphabets:
+                if letter in alphabet:
+                    new_letter = alphabet[(
+                        alphabet.index(letter) + shift) % len(alphabet)]
+
             r += new_letter
 
             iter += 1
