@@ -34,6 +34,10 @@ as well as postgresql with an existing database, the details of which can be vie
 ```
 python -m run
 ```
+<i>To use tests, use the command in the virtual environment
+
+```pytest ./tests/ciphers_test.py ```
+
 ## Admin Features
 
 - ```/stat``` - Number of users in the bot
