@@ -99,9 +99,9 @@ class Cipher:
         :param action: Indicates what needs to be done. Can be either encrypt or decrypt
         """
         r = ""
+        alphabet = alphabet.lower()
         new_alphabet = list(reversed(alphabet))
         for letter in text:
-
             if letter.lower() in alphabet:
                 r += new_alphabet[alphabet.index(letter.lower())]
             else:

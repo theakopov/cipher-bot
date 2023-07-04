@@ -7,4 +7,5 @@ venv
 logs.log
 
 .idea/*
+.pytest_cache/*
 __pycache__/
