@@ -1,7 +1,7 @@
 from aiogram import Bot, Dispatcher, F
 from aiogram.fsm.storage.memory import MemoryStorage
 
-from .data.config import logger, config
+from .data.config import create_logs, config, _url
 from .misc import set_commands
 from .database.db import create_db
 from .handlers import base, ciphers, hash, main
@@ -10,12 +10,13 @@ from .middlewares import AntiFloodMiddleware
 
 async def start_bot():
     # init DataBase
-    repo = create_db(
-        f"postgresql+asyncpg://{config.postgres_user}:{config.postgres_password}@{config.postgres_host}:{config.postgres_port}/{config.postgres_db}")
+    repo = create_db(_url)
+        # f"postgresql+asyncpg://{config.postgres_user}:{config.postgres_password}@{config.postgres_host}:{config.postgres_port}/{config.postgres_db}")
+    logger = create_logs()
 
     # init Bot
     bot: Bot = Bot(config.token.get_secret_value(), parse_mode="HTML")
-    dp: Dispatcher = Dispatcher(bot=bot, storage=MemoryStorage(), repo=repo)
+    dp: Dispatcher = Dispatcher(bot=bot, storage=MemoryStorage(), repo=repo, logger=logger)
 
     # Register Handlers
     dp.include_router(base.router)  # Menu for users

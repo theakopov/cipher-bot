@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from bot.database import metadata
-from bot.data.config import POSTGRES_URL
+from bot.data.config import _url
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -24,7 +24,7 @@ if config.config_file_name is not None:
 target_metadata = metadata
 config.set_main_option(
     'sqlalchemy.url',
-    POSTGRES_URL + "?async_fallback=True"
+    _url + "?async_fallback=True"
 )
 
 # other values from the config, defined by the needs of env.py,

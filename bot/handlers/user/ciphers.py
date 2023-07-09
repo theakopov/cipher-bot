@@ -1,4 +1,5 @@
 from os import getenv
+from logging import basicConfig
 
 from aiogram import Router, Bot
 from aiogram.exceptions import TelegramBadRequest
@@ -11,7 +12,7 @@ from ...filters import CheckKey, DefaultEncryption
 from ...models import EncryptionKeyInput
 from ...data.texts.about import description_ciphers
 from ...data.texts.key_description import description_ciphers_keys
-from ...data.config import logger, config
+from ...data.config import config
 from ...misc import Cipher
 from ...keyboards import (
     get_cipher_page,
@@ -24,7 +25,7 @@ router = Router()
 
 
 @router.callback_query(Text(list(Cipher.CIPHERS.values())))
-async def show_cipher(callback: CallbackQuery, state: FSMContext):
+async def show_cipher(callback: CallbackQuery, state: FSMContext, logger: basicConfig):
     await state.clear()
 
     await callback.message.edit_text(
@@ -130,7 +131,7 @@ async def encrpyt_message(message: Message, state: FSMContext, bot: Bot):
 
 
 @router.message(DefaultEncryption())
-async def default_encrypt(message: Message, encrypt: bool):
+async def default_encrypt(message: Message, encrypt: bool, logger: basicConfig):
     await message.delete()
     if encrypt is True:
         result = "0x" + \

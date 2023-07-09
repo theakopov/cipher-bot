@@ -1,5 +1,6 @@
 import logging
 from pydantic import BaseSettings, SecretStr
+from sqlalchemy import URL
 
 
 class Settings(BaseSettings):
@@ -25,26 +26,33 @@ class Settings(BaseSettings):
     redis_db: int
 
     class Config:
-        pass
         env_file = ".env"
         env_file_encoding = "utf-8"
 
 
 config = Settings()
+_url = URL.create(drivername="postgresql+asyncpg",
+               username=config.postgres_user,
+               password=config.postgres_password,
+               host=config.postgres_host,
+               port=config.postgres_port,
+               database=config.postgres_db)
 
 
 # logging
-formatter = logging.Formatter("[%(asctime)s] - %(message)s")
+def create_logs():
+    formatter = logging.Formatter("[%(asctime)s] - %(message)s")
 
-logger = logging.getLogger('usage')
-logger.setLevel(logging.INFO)
+    logger = logging.getLogger('usage')
+    logger.setLevel(logging.INFO)
 
-console_handler = logging.StreamHandler()
+    console_handler = logging.StreamHandler()
 
-file_handler = logging.FileHandler('logs.log')
+    file_handler = logging.FileHandler('logs.log')
 
-console_handler.setFormatter(formatter)
-file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+    file_handler.setFormatter(formatter)
 
-logger.addHandler(console_handler)
-logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+    return logger
