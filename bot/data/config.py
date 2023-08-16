@@ -31,12 +31,7 @@ class Settings(BaseSettings):
 
 
 config = Settings()
-_url = URL.create(drivername="postgresql+asyncpg",
-               username=config.postgres_user,
-               password=config.postgres_password,
-               host=config.postgres_host,
-               port=config.postgres_port,
-               database=config.postgres_db)
+_url = f"postgresql+asyncpg://{config.postgres_user}:{config.postgres_password}@{config.postgres_host}:{config.postgres_port}/{config.postgres_db}"
 
 
 # logging
