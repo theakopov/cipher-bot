@@ -1,4 +1,4 @@
-from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import sessionmaker, declarative_base
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -12,6 +12,5 @@ def create_db(url: str):
     from .requests import Repository
 
     engine = create_async_engine(url, future=True)
-    conn = sessionmaker(bind=engine, class_=AsyncSession,
-                        expire_on_commit=False)
+    conn = async_sessionmaker(bind=engine)
     return Repository(conn, engine)

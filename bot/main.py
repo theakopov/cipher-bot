@@ -11,7 +11,6 @@ from .middlewares import AntiFloodMiddleware
 async def start_bot():
     # init DataBase
     repo = create_db(_url)
-        # f"postgresql+asyncpg://{config.postgres_user}:{config.postgres_password}@{config.postgres_host}:{config.postgres_port}/{config.postgres_db}")
     logger = create_logs()
 
     # init Bot
