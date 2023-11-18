@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 aiogram = "3.0.0b7"
 pycryptodome = "3.18.0"
 alembic = "^1.12.0"
