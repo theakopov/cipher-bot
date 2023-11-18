@@ -3,12 +3,11 @@ import base64
 
 from Crypto.Cipher import AES
 from Crypto import Random
-from typing import Optional
 
 from ..data.data import *
 
 
-class Cipher:
+class Cipher:   
     """
     Class for implementing ciphers
     """
@@ -20,14 +19,20 @@ class Cipher:
     }
 
     @staticmethod
-    def caesar(text: str, key: Optional[int], action: Optional[str] = None) -> str:
-        """"
-        Implementation of the Caesar cipher
+    def caesar(text: str, key: int, action: str = None) -> str:
+        """Implementation of the Caesar cipher
 
-        :param text: text to be encrypted/decrypted
-        :param key: encryption/decryption key
-        :param action: Indicates what needs to be done. Can be either encrypt or decrypt
-        """
+        Args:
+            text (str): text to be encrypted/decrypted
+            key (int): encryption/decryption key
+            action (str): Indicates what needs to be done. Can be either encrypt or decrypt
+
+        Raises:
+            TypeError: Key must be integer
+
+        Returns:
+            str: encrypted or decrypted text
+        """        
         try:
             key = int(key)
         except TypeError:
@@ -48,14 +53,17 @@ class Cipher:
         return r
 
     @staticmethod
-    def vigenere(text: str, key=str, action: Optional[str] = None) -> str:
-        """"
-        Implementation of the Vigenere cipher
+    def vigenere(text: str, key=str, action: str = None) -> str:
+        """Implementation of the Vigenere cipher
 
-        :param text: text to be encrypted/decrypted
-        :param key: encryption/decryption key
-        :param action: Indicates what needs to be done. Can be either encrypt or decrypt
-        """
+        Args:
+            text (str):text to be encrypted/decrypted
+            key (str): encryption/decryption key
+            action (str): Indicates what needs to be done. Can be either encrypt or decrypt
+
+        Returns:
+            str: encrypted or decrypted text
+        """        
         r = ""
         len_key = len(key)
         iter = 0
@@ -90,14 +98,16 @@ class Cipher:
         return r
 
     @staticmethod
-    def atbash(text: str, alphabet: str, action: Optional[str] = None) -> str:
-        """"
-        Implementation of the Atbash cipher
+    def atbash(text: str, alphabet: str, *_, **__) -> str:
+        """Implementation of the Atbash cipher
 
-        :param text: text to be encrypted/decrypted
-        :param key: encryption/decryption key
-        :param action: Indicates what needs to be done. Can be either encrypt or decrypt
-        """
+        Args:
+            text (str): text to be encrypted/decrypted
+            alphabet (str): encryption/decryption key
+
+        Returns:
+            str: encrypted or decrypted text
+        """        
         r = ""
         alphabet = alphabet.lower()
         new_alphabet = list(reversed(alphabet))
@@ -109,14 +119,17 @@ class Cipher:
         return r
 
     @staticmethod
-    def aes(text: str, key: str, action: Optional[str] = None) -> str:
-        """"
-        Implementation of the AES cipher
+    def aes(text: str, key: str, action: str = None) -> str:
+        """Implementation of the AES cipher
 
-        :param text: text to be encrypted/decrypted
-        :param key: encryption/decryption key
-        :param action: Indicates what needs to be done. Can be either encrypt or decrypt
-        """
+        Args:
+            text (str): text to be encrypted/decrypted
+            key (str): encryption/decryption key
+            action (str): Indicates what needs to be done. Can be either encrypt or decrypt
+
+        Returns:
+            str: Indicates what needs to be done. Can be either encrypt or decrypt
+        """        
         def _pad(text):
             return text + (bs - len(text.encode()) % bs) * chr(bs - len(text.encode()) % bs)
 

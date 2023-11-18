@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -9,18 +7,19 @@ from .models import Users
 
 
 class Repository:
+    """Class for working with database"""    
 
     def __init__(self, conn: sessionmaker, engine: AsyncEngine) -> None:
         self.conn = conn
         self.engine = engine
 
-    async def create_user(self, user_id: Optional[int], first_name: Optional[str]) -> None:
-        """
-        Create new user
+    async def create_user(self, user_id: int, first_name: str) -> None:
+        """Create new user
 
-        :param usser_id: telegram user_id
-        :param first_name: telegram first_name
-        """
+        Args:
+            user_id (int): telegram user_id
+            first_name (str): telegram first_name
+        """        
         async with self.conn.begin() as session:
             data = Users(
                 user_id=user_id, first_name=first_name, registration=func.now()

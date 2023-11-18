@@ -1,5 +1,4 @@
-from os import getenv
-from logging import basicConfig
+from logging import Logger
 
 from aiogram import Router, Bot
 from aiogram.exceptions import TelegramBadRequest
@@ -25,7 +24,7 @@ router = Router()
 
 
 @router.callback_query(Text(list(Cipher.CIPHERS.values())))
-async def show_cipher(callback: CallbackQuery, state: FSMContext, logger: basicConfig):
+async def show_cipher(callback: CallbackQuery, state: FSMContext, logger: Logger):
     await state.clear()
 
     await callback.message.edit_text(
@@ -40,6 +39,7 @@ async def show_cipher(callback: CallbackQuery, state: FSMContext, logger: basicC
 async def cryptographer(
     callback: CallbackQuery, callback_data: Ciphers_data, state: FSMContext
 ):
+    """Handler for navigating the cipher menu"""
     action = callback_data.action
     cipher = callback_data.cipher
 
@@ -93,13 +93,14 @@ async def encrpyt_message(message: Message, state: FSMContext, bot: Bot):
     except TelegramBadRequest:
         pass
 
-    if key is None and getattr(CheckKey, cipher)(message.text):
+    is_correct_key = getattr(CheckKey, cipher)
+    if key is None and is_correct_key(message.text):
         msg = await message.answer(f"Enter text to {action}")
         data["key"] = message.text
+
     elif key is not None and len(message.text) < 4000:
-        result = getattr(Cipher, cipher)(
-            message.text, key, action=action
-        )
+        cipher_func = getattr(Cipher, cipher)
+        result = cipher_func(message.text, key, action)
 
         text = (
             f"""<b>Cipher:</b> <code>{cipher} cipher</code>\n"""
@@ -116,12 +117,14 @@ async def encrpyt_message(message: Message, state: FSMContext, bot: Bot):
             msg = await message.answer(
                 "It seems your message is too long.\n Use /cancel  or try again"
             )
+        
     elif data.get("key") is None:
         msg = await message.answer(
             f"""An error was made while entering the key."""
             f"""Use /cancel  or try again\n\n"""
             f"""{description_ciphers_keys.get(cipher)}"""
         )
+        
     else:
         msg = await message.answer(
             "It seems your message is too long.\n Use /cancel  or try again"
@@ -131,7 +134,7 @@ async def encrpyt_message(message: Message, state: FSMContext, bot: Bot):
 
 
 @router.message(DefaultEncryption())
-async def default_encrypt(message: Message, encrypt: bool, logger: basicConfig):
+async def default_encrypt(message: Message, encrypt: bool, logger: Logger):
     await message.delete()
     if encrypt is True:
         result = "0x" + \

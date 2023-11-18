@@ -1,25 +1,19 @@
 import logging
 from pydantic import BaseSettings, SecretStr
-from sqlalchemy import URL
 
 
 class Settings(BaseSettings):
-    # Bot settings
+    "Bot settings"
     token: SecretStr
     admin: int
     limit: int
     key: SecretStr
 
-    # Databases
-
-    # Postgresql
     postgres_user: str
     postgres_password: str
     postgres_db: str
     postgres_host: str
     postgres_port: int
-
-    # Redis
 
     redis_host: str
     redis_port: int
@@ -34,7 +28,6 @@ config = Settings()
 _url = f"postgresql+asyncpg://{config.postgres_user}:{config.postgres_password}@{config.postgres_host}:{config.postgres_port}/{config.postgres_db}"
 
 
-# logging
 def create_logs():
     formatter = logging.Formatter("[%(asctime)s] - %(message)s")
 

@@ -1,13 +1,12 @@
 import pytest
 import string
-from typing import List, Tuple, Union
 
 from bot.misc.ciphers import Cipher
 
 # The correctness of the key
 # is checked in bot/filters/keys.py
 
-caesar: List[Tuple[Union[str, int]]] = [
+caesar: list[tuple[str | int]] = [
     ("Это test datos | ё ñ", 34, "encrypt", "Юуп alza khavz | ж u"),
     ("Юуп alza khavz | ж u", 34,
      "decrypt", "Это test datos | ё ñ"),
@@ -15,14 +14,14 @@ caesar: List[Tuple[Union[str, int]]] = [
      "encrypt", string.punctuation)
 ]
 
-vigenere: List[Tuple[Union[str, int]]] = [
+vigenere: list[tuple[str | int]] = [
     ("Это test datos | ё ñ", "_Шифр!=Хэш_ёñ",
      "encrypt", "Хыг kzvr jñrxn | ц j"),
     ("ab", "abcd", "encrypt", "ac"),
     ("abcd", "b", "encrypt", "bcde"),
 ]
 
-atbash: List[Tuple[Union[str, int]]] = [
+atbash: list[tuple[str | int]] = [
     ("c", "abCdefghijklmnopqrstuvwxyz", "x"),
     ("y", "x", "y"),
     ("ab", "ab", "ba"),
@@ -30,7 +29,7 @@ atbash: List[Tuple[Union[str, int]]] = [
     ("c", "abcde", "c")
 ]
 
-aes: List[Tuple[Union[str, int]]] = [
+aes: list[tuple[str | int]] = [
     ("Something", "Something", "decrypt"),
     ("Text", "Key", "encrypt"),
     ("äåé∛®áßðö≷ ℸ⠉⡉㉈⭑🄸ⵓঊఃོႳ໒Լᢕ⫚㈥𝋡㊽𐇳☜ᶉ🕱℃🖵⑂ↂ", "äåé∛®áßðö≷ ℸ⠉⡉㉈⭑🄸ⵓঊఃོႳ໒Լᢕ⫚㈥𝋡㊽𐇳☜ᶉ🕱℃🖵⑂ↂ", "encrypt"),

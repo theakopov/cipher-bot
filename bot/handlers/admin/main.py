@@ -48,5 +48,8 @@ async def config(message: Message, *args, **kwargs):
 
 @router.message(Command("logs"), ForAdmins())
 async def logs(message: Message, *args, **kwargs):
+    """ 
+    Returns log files
+    """
     logs = input_file.FSInputFile("logs.log")
     await message.answer_document(logs)

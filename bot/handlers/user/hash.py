@@ -19,10 +19,12 @@ router = Router()
 
 @router.callback_query(Text(text=hashes), StateFilter("*"))
 async def hash_input(callback: CallbackQuery, state: FSMContext, logger: basicConfig):
+    """Getting a hash from a user"""    
     await state.set_state(Hash_input.get_text_for_hash)
 
     msg = await callback.message.edit_text(text=f"Hash: <code>{callback.data}</code>\n\nEnter text to hash",
-                                           reply_markup=get_back_button(lvl="hash", cipher=""), disable_notification=True)
+                                           reply_markup=get_back_button(lvl="hash", cipher=""),
+                                           disable_notification=True)
     await state.set_data({"message_id": msg.message_id, "hash": callback.data})
     logger.info(
         f"{callback.data.title()} has been requested by {callback.from_user.id}")
@@ -30,6 +32,7 @@ async def hash_input(callback: CallbackQuery, state: FSMContext, logger: basicCo
 
 @router.message(StateFilter(Hash_input.get_text_for_hash))
 async def hashing(message: Message, state: FSMContext, bot: Bot):
+    """Hashing data"""
     data = await state.get_data()
 
     await message.delete()
